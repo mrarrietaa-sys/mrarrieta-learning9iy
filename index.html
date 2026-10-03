@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Irregular Verbs — Past Simple &amp; Past Participle (B1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #111111;
+    --ink-soft:   #3A3A3A;
+    --gray:       #6E6E6E;
+    --gray-soft:  #E4E4E4;
+    --white:      #FFFFFF;
+    --r-lg: 26px;
+    --r-md: 16px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+  }
+
+  html,body{ height:100%; }
+
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--white);
+    color:var(--ink);
+    min-height:100vh;
+    padding:36px 18px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  .bg-blob{ position:fixed; border-radius:50%; filter:blur(60px); z-index:0; opacity:0.6; }
+  .bg-blob.b1{ width:360px; height:360px; background:var(--gray-soft); top:-140px; right:-120px; }
+  .bg-blob.b2{ width:320px; height:320px; background:var(--gray-soft); bottom:-140px; left:-120px; }
+
+  .stage{ max-width:620px; margin:0 auto; position:relative; z-index:1; }
+
+  /* ---------- Persistent header ---------- */
+  .header-row{ display:flex; align-items:center; gap:10px; margin-bottom:26px; }
+  .m1-badge{
+    width:44px; height:44px; border-radius:12px;
+    background:var(--ink); color:var(--white);
+    border:2.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Poppins',sans-serif; font-weight:800; font-size:15px;
+    box-shadow:0 6px 12px -4px rgba(17,17,17,0.35);
+  }
+  .m1-label{ font-family:'Poppins',sans-serif; font-weight:800; font-size:16px; color:var(--ink); }
+  .m1-label span{ color:var(--gray); }
+
+  .meta-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:18px; gap:10px; flex-wrap:wrap;
+  }
+  .q-count{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:13px;
+    letter-spacing:0.04em; color:var(--ink); text-transform:uppercase;
+  }
+  .dots{ display:flex; gap:5px; flex-wrap:wrap; max-width:260px; }
+  .dot{
+    width:9px; height:9px; border-radius:50%;
+    border:2px solid var(--gray-soft); background:transparent;
+    transition:background .25s ease, border-color .25s ease;
+  }
+  .dot.current{ background:var(--ink); border-color:var(--ink); }
+  .dot.done{ background:var(--ink-soft); border-color:var(--ink-soft); }
+
+  .score-badge{
+    font-family:'Inter',sans-serif; font-weight:800; font-size:13px;
+    color:var(--ink); background:var(--white);
+    border:2.5px solid var(--ink);
+    padding:8px 16px; border-radius:999px; white-space:nowrap;
+  }
+
+  /* ---------- Screens ---------- */
+  .screen{ display:none; }
+  .screen.active{ display:block; animation:fadeUp .45s ease both; }
+  @keyframes fadeUp{ from{ opacity:0; transform:translateY(12px); } to{ opacity:1; transform:translateY(0); } }
+
+  /* ---------- WELCOME ---------- */
+  .welcome{ text-align:center; padding:36px 18px 10px; }
+
+  .eyebrow-pill{
+    display:inline-flex; align-items:center; gap:7px;
+    background:var(--ink); color:var(--white);
+    font-family:'Inter',sans-serif; font-weight:700; font-size:12px;
+    letter-spacing:0.1em; text-transform:uppercase;
+    padding:9px 18px; border-radius:999px; margin-bottom:26px;
+  }
+
+  h1.title{
+    position:relative; display:inline-block;
+    font-family:'Poppins',sans-serif; font-weight:900;
+    font-size:clamp(30px,7.6vw,50px);
+    text-transform:uppercase; color:var(--ink);
+    letter-spacing:-0.01em; line-height:1.08; margin-bottom:22px;
+  }
+  h1.title::after{
+    content:""; position:absolute; left:2%; right:2%; bottom:-8px;
+    height:15px; background:var(--gray-soft); border-radius:8px; z-index:-1;
+  }
+
+  p.lead{ font-size:17px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+  p.sub-lead{ font-size:14px; color:var(--gray); margin-bottom:34px; }
+
+  .preview-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:32px; }
+  .chip-preview{
+    position:relative;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px;
+    background:var(--white); color:var(--ink);
+    border:2.5px solid var(--ink); border-radius:14px; padding:13px 20px;
+  }
+  .chip-preview small{
+    display:block; font-size:10.5px; font-weight:700; color:var(--gray);
+    text-transform:uppercase; letter-spacing:0.06em; margin-bottom:3px;
+  }
+  .chip-preview::before{
+    content:""; position:absolute; left:18px; bottom:-9px;
+    border-left:8px solid transparent; border-right:8px solid transparent;
+    border-top:8px solid var(--ink);
+  }
+  .chip-preview::after{
+    content:""; position:absolute; left:20px; bottom:-6px;
+    border-left:6px solid transparent; border-right:6px solid transparent;
+    border-top:6px solid var(--white);
+  }
+
+  .info-box{
+    text-align:left; background:var(--gray-soft); border:2.5px dashed var(--gray);
+    border-radius:var(--r-md); padding:18px 20px; margin:0 0 34px;
+    font-size:13.5px; color:var(--ink); line-height:1.55;
+  }
+  .info-box strong{ color:var(--ink); }
+
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px;
+    border-radius:999px; padding:17px 32px; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    border:none;
+  }
+  .btn:focus-visible{ outline:3px solid var(--gray); outline-offset:3px; }
+
+  .btn-primary{
+    background:var(--ink); color:var(--white);
+    border:3px solid var(--ink); box-shadow:4px 5px 0 var(--gray);
+    width:100%; max-width:340px;
+  }
+  .btn-primary:hover{ transform:translate(-2px,-2px); box-shadow:6px 7px 0 var(--gray); }
+  .btn-primary:active{ transform:translate(1px,2px); box-shadow:2px 2px 0 var(--gray); }
+  .btn-primary:disabled{
+    background:var(--gray-soft); border-color:var(--gray-soft); color:var(--gray);
+    box-shadow:none; cursor:not-allowed; transform:none;
+  }
+
+  .btn-sm{
+    font-size:13px; padding:10px 18px; border-radius:999px;
+    background:var(--white); color:var(--ink);
+    border:2.5px solid var(--ink); box-shadow:2.5px 3px 0 rgba(17,17,17,0.18);
+  }
+  .btn-sm:hover{ transform:translate(-1px,-1px); box-shadow:3.5px 4px 0 rgba(17,17,17,0.18); }
+  .btn-sm:active{ transform:translate(1px,1px); box-shadow:1px 1px 0 rgba(17,17,17,0.18); }
+  .btn-sm.recording{ background:var(--ink); color:var(--white); border-color:var(--ink); animation:pulseRec 1s ease-in-out infinite; }
+  @keyframes pulseRec{ 0%,100%{ box-shadow:2.5px 3px 0 rgba(17,17,17,0.18);} 50%{ box-shadow:2.5px 3px 0 rgba(17,17,17,0.18), 0 0 0 6px rgba(110,110,110,0.35);} }
+
+  /* ---------- ACTIVITY CARD ---------- */
+  .card{
+    background:var(--white); border:3px solid var(--ink);
+    border-radius:var(--r-lg); box-shadow:9px 10px 0 var(--gray-soft);
+    padding:32px 30px; margin-bottom:20px;
+  }
+  .card-label{
+    font-family:'Inter',sans-serif; font-weight:800; font-size:14px;
+    letter-spacing:0.04em; text-transform:uppercase; color:var(--ink); margin-bottom:8px;
+  }
+  .card-sub{ font-size:14px; color:var(--gray); margin-bottom:22px; }
+
+  .photo-frame{
+    position:relative; width:100%; aspect-ratio:16/10; max-height:260px;
+    background:var(--gray-soft); border:3px solid var(--ink);
+    border-radius:var(--r-md); overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:6px 7px 0 var(--gray-soft); margin-bottom:24px;
+  }
+  .photo-frame img{ width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .35s ease; }
+  .img-loading{
+    position:absolute; font-family:'Inter',sans-serif; font-size:12.5px;
+    font-weight:700; color:var(--gray); letter-spacing:0.03em;
+  }
+
+  .listen-row{ display:flex; justify-content:center; margin-bottom:26px; }
+  .btn-listen{
+    background:var(--ink); color:var(--white);
+    border:none; border-radius:999px;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:13.5px;
+    padding:12px 22px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:8px;
+    box-shadow:3px 4px 0 var(--gray-soft); transition:transform .15s ease;
+  }
+  .btn-listen:hover:not(:disabled){ transform:translate(-2px,-2px); }
+  .btn-listen:active:not(:disabled){ transform:translate(1px,2px); }
+  .btn-listen:disabled{ background:var(--gray-soft); color:var(--gray); cursor:not-allowed; box-shadow:none; }
+  .btn-listen svg{ width:16px; height:16px; }
+  .btn-listen.speaking{ animation:speakPulse .7s ease-in-out infinite; }
+  @keyframes speakPulse{ 0%,100%{ opacity:1;} 50%{ opacity:.6;} }
+
+  .sentence-block{ text-align:center; margin-bottom:22px; }
+  .sentence-block.dialogue{ text-align:left; }
+  .sentence-text{
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:17px;
+    color:var(--ink); line-height:2.35;
+  }
+  .dlg-line{ display:block; }
+  .dlg-line .speaker{ font-weight:800; color:var(--gray); margin-right:4px; }
+
+  .blank-select{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15px; color:var(--ink);
+    background-color:var(--white);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5l5 5 5-5' stroke='%23111111' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat:no-repeat; background-position:right 9px center;
+    border:2.5px solid var(--ink); border-radius:11px;
+    padding:5px 28px 5px 11px; margin:0 3px;
+    -webkit-appearance:none; appearance:none; cursor:pointer;
+    max-width:100%;
+  }
+  .blank-select:focus{ outline:3px solid var(--gray-soft); outline-offset:1px; }
+  .blank-select.is-correct{ background-color:var(--gray-soft); }
+  .blank-select.is-wrong{ text-decoration:line-through; color:var(--gray); }
+  .blank-select:disabled{ cursor:default; opacity:1; color:var(--ink); }
+  .blank-select.is-wrong:disabled{ color:var(--gray); }
+
+  .check-row{ display:flex; justify-content:center; margin-bottom:8px; }
+  .btn-check{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:14px;
+    background:var(--ink); color:var(--white);
+    border:none; border-radius:14px; padding:14px 34px; cursor:pointer;
+    box-shadow:3px 4px 0 var(--gray-soft); transition:transform .15s ease;
+  }
+  .btn-check:hover:not(:disabled){ transform:translate(-2px,-2px); }
+  .btn-check:active:not(:disabled){ transform:translate(1px,2px); }
+  .btn-check:disabled{ background:var(--gray-soft); color:var(--gray); cursor:not-allowed; box-shadow:none; }
+
+  .hint-line{ text-align:center; font-size:12.5px; color:var(--gray); min-height:18px; margin-top:6px; }
+
+  .correct-reveal{
+    font-size:13.5px; color:var(--gray); margin-top:14px; line-height:1.6; text-align:left;
+    background:var(--gray-soft); border-radius:12px; padding:12px 14px;
+  }
+  .correct-reveal strong{ color:var(--ink); }
+
+  .feedback-toast{
+    display:none; align-items:center; gap:10px;
+    font-family:'Inter',sans-serif; font-weight:800; font-size:14px;
+    padding:13px 18px; border-radius:var(--r-md);
+    margin:18px 0 0; border:2.5px solid var(--ink);
+  }
+  .feedback-toast.show{ display:flex; animation:popIn .3s cubic-bezier(.34,1.56,.64,1); }
+  @keyframes popIn{ from{ opacity:0; transform:scale(.92) translateY(-4px);} to{ opacity:1; transform:scale(1) translateY(0);} }
+  .feedback-toast.correct{ background:var(--ink); color:var(--white); box-shadow:3px 4px 0 var(--gray-soft); }
+  .feedback-toast.incorrect{ background:var(--white); color:var(--ink); box-shadow:3px 4px 0 var(--gray-soft); }
+  .feedback-toast svg{ width:18px; height:18px; flex-shrink:0; }
+
+  .shake{ animation:shake .4s ease; }
+  @keyframes shake{
+    10%,90%{ transform:translateX(-2px); }
+    20%,80%{ transform:translateX(4px); }
+    30%,50%,70%{ transform:translateX(-7px); }
+    40%,60%{ transform:translateX(7px); }
+  }
+
+  /* ---------- RECORD YOUR VOICE ---------- */
+  .record-panel{
+    display:none; margin-top:20px; background:var(--gray-soft);
+    border:2.5px dashed var(--gray); border-radius:var(--r-md); padding:18px 18px 16px;
+  }
+  .record-panel.show{ display:block; animation:popIn .3s ease both; }
+  .record-title{
+    font-family:'Inter',sans-serif; font-weight:800; font-size:12.5px;
+    letter-spacing:0.05em; text-transform:uppercase; color:var(--ink);
+    margin-bottom:6px; display:flex; align-items:center; gap:6px;
+  }
+  .record-desc{ font-size:13px; color:var(--gray); margin-bottom:14px; line-height:1.5; }
+  .record-controls{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .record-status{ font-size:12.5px; font-weight:700; color:var(--ink); }
+  .record-audio{ margin-top:12px; width:100%; }
+  .record-note{ font-size:12px; color:var(--gray); margin-top:10px; font-style:italic; }
+
+  .action-row{ display:flex; gap:14px; margin-top:22px; }
+  .action-row .btn{ flex:1; }
+
+  /* ---------- FINAL ---------- */
+  .final-card{ text-align:center; padding:48px 32px 40px; }
+  .trophy-wrap{
+    width:88px; height:88px; margin:0 auto 22px;
+    background:var(--ink); border-radius:22px; border:3px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:4px 5px 0 var(--gray-soft); transform:rotate(-4deg);
+    animation:trophyPop .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  @keyframes trophyPop{ 0%{ transform:scale(0) rotate(-24deg);} 100%{ transform:scale(1) rotate(-4deg);} }
+  .trophy-wrap svg{ width:42px; height:42px; }
+
+  h2.final-title{ font-family:'Poppins',sans-serif; font-weight:900; text-transform:uppercase; font-size:28px; margin-bottom:8px; }
+  p.final-sub{ color:var(--gray); font-size:14.5px; margin-bottom:28px; }
+
+  .score-display{
+    display:inline-flex; align-items:baseline; gap:6px;
+    font-family:'Poppins',sans-serif; font-weight:900; font-size:50px; color:var(--ink); margin-bottom:4px;
+  }
+  .score-display span.of{ font-size:22px; color:var(--gray); font-weight:700; }
+  .score-label{
+    font-family:'Inter',sans-serif; font-weight:800; font-size:12px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--gray); margin-bottom:28px;
+  }
+  .progress-track{
+    height:12px; background:var(--gray-soft); border:2px solid var(--ink);
+    border-radius:99px; overflow:hidden; margin-bottom:32px;
+  }
+  .progress-fill{ height:100%; width:0%; background:var(--ink); transition:width 1s cubic-bezier(.22,1,.36,1); }
+
+  .final-btn-row{ display:flex; flex-direction:column; gap:12px; align-items:center; }
+  .final-btn-row .btn{ width:100%; max-width:340px; }
+
+  @media (max-width:480px){
+    .card{ padding:24px 18px; }
+    .final-card{ padding:40px 20px 34px; }
+    .welcome{ padding:26px 10px 6px; }
+    .action-row{ flex-direction:column; }
+    .sentence-text{ font-size:15.5px; line-height:2.4; }
+    .blank-select{ font-size:14px; }
+  }
+  /* ---------- QUESTION + OPTION TILES ---------- */
+  .q-text{
+    font-family:'Poppins',sans-serif; font-weight:800; font-size:21px; line-height:1.35;
+    color:var(--ink); text-align:center; margin:0 0 6px;
+  }
+  .q-text .verb{
+    display:inline-block; background:var(--ink); color:var(--white);
+    border-radius:10px; padding:0 10px; margin:0 2px;
+  }
+  .q-note{ text-align:center; font-size:12.5px; font-weight:700; color:var(--gray); min-height:18px; margin-bottom:16px; letter-spacing:.02em; }
+  .options{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  .opt{
+    font-family:'Poppins',sans-serif; font-weight:700; font-size:19px; color:var(--ink);
+    background:var(--white); border:3px solid var(--ink); border-radius:var(--r-md);
+    padding:18px 10px; cursor:pointer; text-align:center; position:relative;
+    box-shadow:4px 5px 0 var(--gray-soft); transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+  .opt:hover:not(:disabled){ transform:translate(-2px,-2px); box-shadow:6px 7px 0 var(--gray-soft); }
+  .opt:active:not(:disabled){ transform:translate(1px,2px); box-shadow:2px 2px 0 var(--gray-soft); }
+  .opt:focus-visible{ outline:3px solid var(--gray); outline-offset:3px; }
+  .opt.selected{ background:var(--ink); color:var(--white); }
+  .opt:disabled{ cursor:default; }
+  .opt.is-correct{ background:var(--gray-soft); color:var(--ink); border-color:var(--ink); }
+  .opt.is-correct::after{ content:"✓"; position:absolute; right:10px; top:6px; font-size:15px; }
+  .opt.is-wrong{ background:var(--white); color:var(--gray); text-decoration:line-through; border-color:var(--ink); }
+  .opt.is-missed{ background:var(--gray-soft); color:var(--ink); border-style:dashed; }
+  @media (max-width:480px){
+    .q-text{ font-size:18px; }
+    .opt{ font-size:17px; padding:15px 6px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blob b1" aria-hidden="true"></div>
+<div class="bg-blob b2" aria-hidden="true"></div>
+
+<audio id="tts-audio" preload="none" style="display:none;"></audio>
+
+<div class="stage">
+
+  <div class="header-row">
+    <div class="m1-badge">B1</div>
+    <div class="m1-label">INTERMEDIATE <span>B1</span></div>
+  </div>
+
+  <!-- ============ WELCOME SCREEN ============ -->
+  <section class="screen active" id="screen-welcome">
+    <div class="welcome">
+      <div class="eyebrow-pill">✦ Interactive Activity</div>
+      <h1 class="title">Irregular Verbs</h1>
+      <p class="lead">Choose the correct past simple or past participle of each verb.</p>
+      <p class="sub-lead">Look at the picture, read the question, and tap the matching answer.</p>
+
+      <div class="preview-row" aria-hidden="true">
+        <div class="chip-preview"><small>past simple</small>took</div>
+        <div class="chip-preview"><small>past participle</small>taken</div>
+      </div>
+
+      <div class="info-box">
+        <strong>Instructions:</strong> in each question you will see a real photo and a question such as <strong>“What’s the past participle of BUY?”</strong>. Tap the correct answer (in some questions you must choose <strong>two</strong> answers) and press <strong>“Check”</strong>. After checking, press <strong>“Listen”</strong> to hear the correct answer read aloud, and use the <strong>microphone</strong> button to record yourself saying it out loud.
+      </div>
+
+      <button class="btn btn-primary" id="btn-start">
+        START ACTIVITY
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ ACTIVITY SCREEN ============ -->
+  <section class="screen" id="screen-activity">
+    <div class="meta-row">
+      <div class="q-count" id="q-count">QUESTION 1 OF 12</div>
+      <div class="dots" id="dots"></div>
+      <div class="score-badge">SCORE: <span id="score-value">0</span>/<span id="score-total">12</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Choose the correct answer</div>
+      <div class="card-sub">Look at the picture and tap the matching tile.</div>
+
+      <div class="photo-frame" id="photo-frame">
+        <div class="img-loading">Loading photo…</div>
+        <img id="photo-img" alt="A real photograph related to the verb." />
+      </div>
+
+      <div class="listen-row">
+        <button class="btn-listen" id="btn-listen" type="button" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+          <span id="listen-label">ANSWER FIRST</span>
+        </button>
+      </div>
+
+      <div class="q-text" id="q-text"></div>
+      <div class="q-note" id="q-note"></div>
+
+      <div class="options" id="options"></div>
+
+      <div class="check-row">
+        <button class="btn-check" id="btn-check" type="button">CHECK</button>
+      </div>
+      <div class="hint-line" id="hint-line"></div>
+      <div class="correct-reveal" id="correct-reveal" style="display:none;"></div>
+
+      <div class="feedback-toast" id="feedback-toast"></div>
+
+      <div class="record-panel" id="record-panel">
+        <div class="record-title">🎤 Practice your pronunciation</div>
+        <div class="record-desc">The correct sentence was:<br><strong id="record-sentence">—</strong><br>Record yourself saying it out loud, then listen back.</div>
+        <div class="record-controls">
+          <button class="btn-sm" id="btn-record" type="button">● Record my voice</button>
+          <span class="record-status" id="record-status"></span>
+        </div>
+        <audio class="record-audio" id="record-audio" controls style="display:none;"></audio>
+        <div class="record-note" id="record-note"></div>
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" id="btn-next" style="display:none;">NEXT QUESTION
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL SCREEN ============ -->
+  <section class="screen" id="screen-final">
+    <div class="card final-card">
+      <div class="trophy-wrap">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M8 21h8M12 17v4M7 4h10v4a5 5 0 01-10 0V4z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 5H4a1 1 0 00-1 1v1a4 4 0 004 4M17 5h3a1 1 0 011 1v1a4 4 0 01-4 4" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h2 class="final-title">Well done!</h2>
+      <p class="final-sub">You completed the Irregular Verbs activity.</p>
+
+      <div class="score-display"><span id="final-score">0</span><span class="of">/ <span id="final-total">12</span></span></div>
+      <div class="score-label">Your score</div>
+
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <div class="final-btn-row">
+        <button class="btn btn-primary" id="btn-retry">TRY AGAIN</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+
+  const pex = id => "https://images.pexels.com/photos/" + id + "/pexels-photo-" + id + ".jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200";
+
+  // Questions and answer options come from the original activity ("IRREGULAR VERBS",
+  // Wordwall). form = which form is asked, verb = the base verb, right = accepted answers,
+  // req = how many answers must be chosen.
+  // Two corrections to the original answer key (see notes in the delivery message):
+  //  - "past simple of BE": the original marked "been" and "were"; the correct pair is "was" and "were".
+  //  - "past participle of GET": the original marks "got"; "gotten" (American English) is accepted too.
+  const QUESTIONS = [
+    { form:"past participle", verb:"BE",   opts:["was","been","be","were"],               right:["been"],            req:1, img:pex("39598425"), voice:'F', say:"The past participle of be is been." },
+    { form:"past participle", verb:"BUY",  opts:["buyed","baught","bought","buyyed"],     right:["bought"],          req:1, img:pex("8387807"),  voice:'F', say:"The past participle of buy is bought." },
+    { form:"past simple",     verb:"BE",   opts:["was","been","be","were"],               right:["was","were"],      req:2, img:pex("39219514"), voice:'M', say:"The past simple of be is was, or were." },
+    { form:"past participle", verb:"MAKE", opts:["made","maked","maden","make"],          right:["made"],            req:1, img:pex("6287459"),  voice:'F', say:"The past participle of make is made." },
+    { form:"past participle", verb:"SING", opts:["sing","sang","singed","sung"],          right:["sung"],            req:1, img:pex("38996331"), voice:'F', say:"The past participle of sing is sung." },
+    { form:"past simple",     verb:"SING", opts:["sing","sang","singed","sung"],          right:["sang"],            req:1, img:pex("12752471"), voice:'F', say:"The past simple of sing is sang." },
+    { form:"past participle", verb:"TAKE", opts:["take","taken","took","taked"],          right:["taken"],           req:1, img:pex("1769106"),  voice:'M', say:"The past participle of take is taken." },
+    { form:"past simple",     verb:"TAKE", opts:["take","taken","took","taked"],          right:["took"],            req:1, img:pex("5756573"),  voice:'F', say:"The past simple of take is took." },
+    { form:"past participle", verb:"READ", opts:["read","readen","readed","roden"],       right:["read"],            req:1, img:pex("2912515"),  voice:'F', say:"The past participle of read is read." },
+    { form:"past participle", verb:"EAT",  opts:["eat","eaten","ate","eated"],            right:["eaten"],           req:1, img:pex("7129430"),  voice:'M', say:"The past participle of eat is eaten." },
+    { form:"past simple",     verb:"EAT",  opts:["eat","eaten","ate","eated"],            right:["ate"],             req:1, img:pex("28935581"), voice:'F', say:"The past simple of eat is ate." },
+    { form:"past participle", verb:"GET",  opts:["get","got","gotten","geted"],           right:["got","gotten"],    req:1, img:pex("6869055"),  voice:'F', say:"The past participle of get is got, or gotten." }
+  ];
+
+  let current = 0;
+  let score = 0;
+  let locked = false;
+  let selected = [];
+  let mediaRecorder = null;
+  let recordedChunks = [];
+  let isRecording = false;
+  let micStream = null;
+
+  const screens = {
+    welcome: document.getElementById('screen-welcome'),
+    activity: document.getElementById('screen-activity'),
+    final: document.getElementById('screen-final')
+  };
+
+  const qCount = document.getElementById('q-count');
+  const scoreValue = document.getElementById('score-value');
+  const dotsEl = document.getElementById('dots');
+  const photoFrame = document.getElementById('photo-frame');
+  const photoImg = document.getElementById('photo-img');
+  const qText = document.getElementById('q-text');
+  const qNote = document.getElementById('q-note');
+  const optionsEl = document.getElementById('options');
+  const btnCheck = document.getElementById('btn-check');
+  const hintLine = document.getElementById('hint-line');
+  const correctReveal = document.getElementById('correct-reveal');
+  const feedbackToast = document.getElementById('feedback-toast');
+  const btnListen = document.getElementById('btn-listen');
+  const listenLabel = document.getElementById('listen-label');
+  const btnNext = document.getElementById('btn-next');
+  const btnStart = document.getElementById('btn-start');
+  const btnRetry = document.getElementById('btn-retry');
+  const recordPanel = document.getElementById('record-panel');
+  const recordSentence = document.getElementById('record-sentence');
+  const btnRecord = document.getElementById('btn-record');
+  const recordStatus = document.getElementById('record-status');
+  const recordAudio = document.getElementById('record-audio');
+  const recordNote = document.getElementById('record-note');
+
+  /* ---------------- Natural human-voice pronunciation (male + female) ----------------
+     Strictly American English (en-US) at every tier, tried in order every
+     single time (a dropped connection never locks the activity into a
+     robotic voice):
+     1) A cloud-quality OS voice already installed in the browser (Microsoft
+        Edge "Online (Natural)" en-US voices, Google US English, Samantha, Alex).
+     2) A recorded-quality neural voice (Amazon Polly, via a free public relay).
+     3) The browser's best built-in en-US voice, only if neither of the above
+        is available or reachable.
+     The voice gender always follows the speaker in the text. */
+  const ttsAudio = document.getElementById('tts-audio');
+  const NEURAL_VOICES = {
+    M: ["Matthew", "Joey"],
+    F: ["Joanna", "Kendra", "Salli"]
+  };
+  let consecutiveFailures = 0;
+  let playToken = 0;
+
+  function pickNeuralVoice(gender, index){
+    const list = NEURAL_VOICES[gender] || NEURAL_VOICES.F;
+    return list[index % list.length];
+  }
+
+  let cachedVoices = [];
+  function refreshVoices(){
+    if('speechSynthesis' in window){ cachedVoices = window.speechSynthesis.getVoices(); }
+  }
+  if('speechSynthesis' in window){
+    refreshVoices();
+    window.speechSynthesis.onvoiceschanged = refreshVoices;
+  }
+
+  function isUS(v){
+    return !!(v && v.lang && v.lang.replace('_','-').toLowerCase() === 'en-us');
+  }
+
+  function pickPremiumVoice(gender, variant){
+    if(!cachedVoices.length) return null;
+    const femaleNames = [
+      /Microsoft (Aria|Jenny|Michelle|Ana) Online \(Natural\)/i,
+      /Google US English/i,
+      /Samantha/i
+    ];
+    const maleNames = [
+      /Microsoft (Guy|Davis|Andrew|Christopher|Eric|Brian|Roger) Online \(Natural\)/i,
+      /Alex/i
+    ];
+    const priorityNames = gender === 'M' ? maleNames : femaleNames;
+    const found = [];
+    for(const rx of priorityNames){
+      cachedVoices.forEach(v => { if(rx.test(v.name) && isUS(v) && found.indexOf(v) === -1) found.push(v); });
+    }
+    if(!found.length) return null;
+    return found[(variant || 0) % found.length];
+  }
+
+  function pickFallbackVoice(gender){
+    const us = cachedVoices.filter(isUS);
+    if(!us.length) return null;
+    const femaleNames = [/Samantha/i, /Zira/i, /Female/i, /Joanna/i, /Aria/i, /Jenny/i, /Victoria/i];
+    const maleNames   = [/Alex/i, /David/i, /Male/i, /Guy/i, /Fred/i, /Matthew/i, /Mark/i];
+    const priorityNames = gender === 'M' ? maleNames : femaleNames;
+    for(const rx of priorityNames){
+      const v = us.find(v => rx.test(v.name));
+      if(v) return v;
+    }
+    return us[0];
+  }
+
+  function speakWithVoice(text, voice, onEnd){
+    if(!('speechSynthesis' in window)){ if(onEnd) onEnd(); return; }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.voice = voice;
+    utter.rate = 0.94; utter.pitch = 1.0; utter.volume = 1;
+    utter.onend = function(){ if(onEnd) onEnd(); };
+    utter.onerror = function(){ if(onEnd) onEnd(); };
+    window.speechSynthesis.speak(utter);
+  }
+
+  function fallbackSpeak(text, gender, variant, onEnd){
+    if(!('speechSynthesis' in window)){ if(onEnd) onEnd(); return; }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    const v = pickFallbackVoice(gender);
+    if(v) utter.voice = v;
+    utter.rate = 0.9;
+    utter.pitch = (gender === 'M' ? 0.95 : 1.05) + ((variant || 0) ? 0.12 : 0);
+    utter.volume = 1;
+    utter.onend = function(){ if(onEnd) onEnd(); };
+    utter.onerror = function(){ if(onEnd) onEnd(); };
+    window.speechSynthesis.speak(utter);
+  }
+
+  function attemptNeural(text, gender, voiceIndex, attempt, onSuccess, onFail){
+    const voiceName = pickNeuralVoice(gender, voiceIndex + attempt);
+    const url = 'https://api.streamelements.com/kappa/v2/speech?voice=' + voiceName + '&text=' + encodeURIComponent(text);
+    let settled = false;
+    const timeoutMs = consecutiveFailures >= 2 ? 4000 : 7000;
+    const safety = setTimeout(function(){
+      if(!settled){ settled = true; try{ ttsAudio.pause(); }catch(e){} onFail(); }
+    }, timeoutMs);
+
+    ttsAudio.onended = function(){
+      if(settled) return; settled = true; clearTimeout(safety);
+      consecutiveFailures = 0; onSuccess();
+    };
+    ttsAudio.onerror = function(){
+      if(settled) return; settled = true; clearTimeout(safety); onFail();
+    };
+
+    try{
+      ttsAudio.src = url;
+      const p = ttsAudio.play();
+      if(p && p.catch){
+        p.catch(function(){ if(settled) return; settled = true; clearTimeout(safety); onFail(); });
+      }
+    }catch(e){
+      if(!settled){ settled = true; clearTimeout(safety); onFail(); }
+    }
+  }
+
+  function speakPhrase(text, gender, variant, onEnd){
+    let finished = false;
+    const finish = function(){ if(!finished){ finished = true; if(onEnd) onEnd(); } };
+
+    const premium = pickPremiumVoice(gender, variant);
+    if(premium){ speakWithVoice(text, premium, finish); return; }
+
+    attemptNeural(text, gender, variant || 0, 0, finish, function(){
+      attemptNeural(text, gender, variant || 0, 1, finish, function(){
+        consecutiveFailures++;
+        fallbackSpeak(text, gender, variant, finish);
+      });
+    });
+  }
+
+  function stopAllAudio(){
+    playToken++;
+    try{ ttsAudio.pause(); }catch(e){}
+    ttsAudio.onended = null; ttsAudio.onerror = null;
+    if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+  }
+
+
+  function stopAllAudio(){
+    playToken++;
+    try{ ttsAudio.pause(); }catch(e){}
+    ttsAudio.onended = null; ttsAudio.onerror = null;
+    if('speechSynthesis' in window){ try{ window.speechSynthesis.cancel(); }catch(e){} }
+  }
+
+  function playCurrent(){
+    const q = QUESTIONS[current];
+    const myToken = ++playToken;
+    btnListen.classList.add('speaking');
+    btnListen.disabled = true;
+    listenLabel.textContent = 'PLAYING…';
+    speakPhrase(q.say, q.voice, 0, function(){
+      if(myToken !== playToken) return;
+      btnListen.classList.remove('speaking');
+      btnListen.disabled = false;
+      listenLabel.textContent = 'LISTEN';
+    });
+  }
+
+  btnListen.addEventListener('click', function(){
+    if(btnListen.disabled || !locked) return;
+    playCurrent();
+  });
+
+  /* ---------------- Voice recording (student practice) ---------------- */
+  function stopMicStream(){
+    if(micStream){
+      micStream.getTracks().forEach(t => t.stop());
+      micStream = null;
+    }
+  }
+
+  async function startRecording(){
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia || typeof MediaRecorder === 'undefined'){
+      recordNote.textContent = 'Your browser does not allow audio recording here. You can still practice out loud.';
+      return;
+    }
+    try{
+      stopAllAudio();
+      micStream = await navigator.mediaDevices.getUserMedia({ audio:true });
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(micStream);
+      mediaRecorder.ondataavailable = function(e){ if(e.data && e.data.size > 0) recordedChunks.push(e.data); };
+      mediaRecorder.onstop = function(){
+        const blob = new Blob(recordedChunks, { type:'audio/webm' });
+        const url = URL.createObjectURL(blob);
+        recordAudio.src = url;
+        recordAudio.style.display = 'block';
+        recordStatus.textContent = '✓ Recording ready. Press play to listen to yourself.';
+        stopMicStream();
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      btnRecord.textContent = '■ Stop recording';
+      btnRecord.classList.add('recording');
+      recordStatus.textContent = 'Recording… speak now.';
+      recordNote.textContent = '';
+    }catch(err){
+      recordNote.textContent = 'We could not access your microphone. Please check your browser permissions and try again.';
+    }
+  }
+
+  function stopRecording(){
+    if(mediaRecorder && isRecording){
+      mediaRecorder.stop();
+    }
+    isRecording = false;
+    btnRecord.textContent = '● Record my voice';
+    btnRecord.classList.remove('recording');
+  }
+
+  btnRecord.addEventListener('click', function(){
+    if(isRecording){ stopRecording(); }
+    else { startRecording(); }
+  });
+
+  function resetRecordPanel(){
+    recordPanel.classList.remove('show');
+    recordAudio.style.display = 'none';
+    recordAudio.removeAttribute('src');
+    recordStatus.textContent = '';
+    recordNote.textContent = '';
+    btnRecord.textContent = '● Record my voice';
+    btnRecord.classList.remove('recording');
+    isRecording = false;
+    if(mediaRecorder && mediaRecorder.state !== 'inactive'){
+      try{ mediaRecorder.stop(); }catch(e){}
+    }
+    stopMicStream();
+  }
+
+  /* ---------------- Photo loading ---------------- */
+  function loadPhoto(q){
+    const loading = photoFrame.querySelector('.img-loading');
+    loading.style.display = 'block';
+    loading.textContent = 'Loading photo…';
+    photoImg.style.opacity = '0';
+    photoImg.onload = function(){ loading.style.display = 'none'; photoImg.style.opacity = '1'; };
+    photoImg.onerror = function(){ loading.textContent = 'Photo could not be loaded.'; };
+    photoImg.src = q.img;
+  }
+
+  /* ---------------- Quiz logic ---------------- */
+  function buildDots(){
+    dotsEl.innerHTML = '';
+    QUESTIONS.forEach(() => { const d = document.createElement('div'); d.className = 'dot'; dotsEl.appendChild(d); });
+  }
+
+  function refreshDots(){
+    [...dotsEl.children].forEach((d,i) => {
+      d.classList.remove('done','current');
+      if(i < current) d.classList.add('done');
+      else if(i === current) d.classList.add('current');
+    });
+  }
+
+  function renderOptions(q){
+    optionsEl.innerHTML = '';
+    q.opts.forEach(o => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'opt'; b.dataset.v = o; b.textContent = o;
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click', () => onOptionClick(o, b));
+      optionsEl.appendChild(b);
+    });
+  }
+
+  function onOptionClick(o, btn){
+    if(locked) return;
+    const q = QUESTIONS[current];
+    const i = selected.indexOf(o);
+    if(i !== -1){ selected.splice(i,1); }
+    else {
+      if(q.req === 1){ selected = [o]; }
+      else if(selected.length < q.req){ selected.push(o); }
+      else { selected.shift(); selected.push(o); }
+    }
+    hintLine.textContent = '';
+    optionsEl.querySelectorAll('.opt').forEach(b => {
+      const on = selected.indexOf(b.dataset.v) !== -1;
+      b.classList.toggle('selected', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
+  function renderQuestion(){
+    locked = false; selected = [];
+    stopAllAudio();
+    const q = QUESTIONS[current];
+    qCount.textContent = 'QUESTION ' + (current + 1) + ' OF ' + QUESTIONS.length;
+    refreshDots();
+
+    feedbackToast.className = 'feedback-toast';
+    feedbackToast.innerHTML = '';
+    btnNext.style.display = 'none';
+    resetRecordPanel();
+    hintLine.textContent = '';
+    correctReveal.style.display = 'none';
+    correctReveal.innerHTML = '';
+    btnCheck.disabled = false;
+    btnListen.classList.remove('speaking');
+    btnListen.disabled = true;
+    listenLabel.textContent = 'ANSWER FIRST';
+
+    loadPhoto(q);
+
+    qText.innerHTML = 'What’s the ' + q.form + ' of <span class="verb">' + q.verb + '</span>?';
+    qNote.textContent = q.req === 2 ? 'Choose 2 answers.' : '';
+    renderOptions(q);
+  }
+
+  function showFeedback(isCorrect){
+    feedbackToast.className = 'feedback-toast show ' + (isCorrect ? 'correct' : 'incorrect');
+    if(isCorrect){
+      feedbackToast.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Correct! Well done.';
+    } else {
+      feedbackToast.innerHTML = '<svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01M12 3l9 16H3L12 3z" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Not quite — the correct answer is shown below.';
+      photoFrame.classList.add('shake');
+      setTimeout(() => photoFrame.classList.remove('shake'), 400);
+    }
+  }
+
+  function checkAnswer(){
+    if(locked) return;
+    const q = QUESTIONS[current];
+    if(selected.length < q.req){
+      hintLine.textContent = q.req === 2 ? 'Choose two answers before pressing Check.' : 'Choose an answer before pressing Check.';
+      optionsEl.classList.add('shake');
+      setTimeout(() => optionsEl.classList.remove('shake'), 400);
+      return;
+    }
+    locked = true;
+    const isCorrect = selected.length === q.req && selected.every(s => q.right.indexOf(s) !== -1);
+
+    optionsEl.querySelectorAll('.opt').forEach(b => {
+      const v = b.dataset.v;
+      b.disabled = true;
+      b.classList.remove('selected');
+      const isRight = q.right.indexOf(v) !== -1;
+      const chosen = selected.indexOf(v) !== -1;
+      if(chosen && isRight) b.classList.add('is-correct');
+      else if(chosen && !isRight) b.classList.add('is-wrong');
+      else if(!chosen && isRight && !isCorrect && q.req === q.right.length) b.classList.add('is-correct');
+      else if(!chosen && isRight && !isCorrect) b.classList.add('is-missed');
+    });
+    btnCheck.disabled = true;
+
+    correctReveal.style.display = 'block';
+    correctReveal.innerHTML = 'Correct answer' + (q.right.length > 1 ? 's' : '') + ': <strong>' + q.right.join('</strong> ' + (q.req === 2 ? 'and' : 'or') + ' <strong>') + '</strong>';
+
+    showFeedback(isCorrect);
+    if(isCorrect){ score++; scoreValue.textContent = score; }
+    dotsEl.children[current].classList.add('done');
+
+    recordSentence.textContent = q.say;
+    recordPanel.classList.add('show');
+
+    btnListen.disabled = false; listenLabel.textContent = 'LISTEN';
+    playCurrent();
+
+    btnNext.style.display = 'inline-flex';
+    btnNext.firstChild.nodeValue = (current === QUESTIONS.length - 1) ? 'SEE RESULTS ' : 'NEXT QUESTION ';
+  }
+
+  btnCheck.addEventListener('click', checkAnswer);
+
+  btnNext.addEventListener('click', function(){
+    current++;
+    if(current < QUESTIONS.length){ renderQuestion(); window.scrollTo({ top:0, behavior:'smooth' }); }
+    else { showFinal(); }
+  });
+
+  function startActivity(){
+    current = 0; score = 0;
+    scoreValue.textContent = 0;
+    buildDots();
+    renderQuestion();
+  }
+
+  btnStart.addEventListener('click', () => {
+    screens.welcome.classList.remove('active');
+    screens.activity.classList.add('active');
+    startActivity();
+  });
+
+  function showFinal(){
+    stopAllAudio(); resetRecordPanel();
+    screens.activity.classList.remove('active');
+    screens.final.classList.add('active');
+    document.getElementById('final-score').textContent = score;
+    const pct = Math.round((score / QUESTIONS.length) * 100);
+    document.getElementById('progress-fill').style.width = '0%';
+    setTimeout(() => { document.getElementById('progress-fill').style.width = pct + '%'; }, 150);
+  }
+
+  btnRetry.addEventListener('click', () => {
+    screens.final.classList.remove('active');
+    screens.activity.classList.add('active');
+    startActivity();
+  });
+
+})();
+</script>
+
+</body>
+</html>
